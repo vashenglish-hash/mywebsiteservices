@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Teaching Services</title>
+  <title>Мои занятия</title>
   <style>
     :root {
-      --primary-orange: #FF6B00;
-      --primary-orange-hover: #E55E00;
+      --primary-burgundy: #A52A2A; /* Бордовый */
+      --primary-burgundy-hover: #8B0000;
       --dark-text: #2C2C2C;
       --light-bg: #FFFFFF;
-      --page-bg: #FAFAFA;
-      --card-shadow: 0 8px 20px rgba(255, 107, 0, 0.15);
+      --page-bg: #fdf9f3; /* Мягкий кремовый фон */
+      --card-gradient-start: #ffffff;
+      --card-gradient-end: #fef7ee; /* Очень светлый персик/крем */
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 20px;
-      background-color: var(--page-bg);
+      background-color: var(--page-bg); /* Кремовая подложка */
       color: var(--dark-text);
     }
 
@@ -39,17 +40,17 @@
     }
 
     .product-card {
-      background: linear-gradient(145deg, #ffffff, #fff5f0);
+      background: linear-gradient(145deg, var(--card-gradient-start), var(--card-gradient-end));
       border-radius: 16px;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(255, 107, 0, 0.1);
+      border: 1px solid rgba(165, 42, 42, 0.08);
     }
 
     .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 30px rgba(255, 107, 0, 0.25);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(165, 42, 42, 0.15);
     }
 
     .product-card img {
@@ -78,29 +79,32 @@
     .price {
       font-size: 1.3em;
       font-weight: 800;
-      color: var(--primary-orange);
+      color: var(--primary-burgundy);
       margin: 8px 0;
     }
 
+    /* === КНОПКА "ЗАПИСАТЬСЯ" === */
     .buy-btn {
       width: 100%;
       padding: 12px;
-      background-color: var(--primary-orange);
+      background-color: var(--primary-burgundy); /* Бордовый */
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 1.05em;
       font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.25s ease;
-      box-shadow: 0 4px 10px rgba(255, 107, 0, 0.2);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 8px rgba(165, 42, 42, 0.2);
     }
 
     .buy-btn:hover {
-      background-color: var(--primary-orange-hover);
-      transform: scale(1.02);
+      background-color: var(--primary-burgundy-hover); /* Темнее при наведении */
+      transform: translateY(-4px); /* Поднимается */
+      box-shadow: 0 6px 14px rgba(165, 42, 42, 0.3);
     }
 
+    /* Модальное окно */
     .modal {
       display: none;
       position: fixed;
@@ -124,7 +128,7 @@
       position: relative;
       padding: 30px;
       box-sizing: border-box;
-      box-shadow: 0 15px 50px rgba(255, 107, 0, 0.3);
+      box-shadow: 0 15px 50px rgba(165, 42, 42, 0.3);
     }
 
     .close-modal {
@@ -139,7 +143,7 @@
     }
 
     .close-modal:hover {
-      color: var(--primary-orange);
+      color: var(--primary-burgundy);
     }
 
     .carousel-container {
@@ -179,7 +183,7 @@
     }
 
     .dot.active {
-      background: var(--primary-orange);
+      background: var(--primary-burgundy);
     }
 
     .modal-title {
@@ -199,12 +203,12 @@
     .modal-price {
       font-size: 1.5em;
       font-weight: 800;
-      color: var(--primary-orange);
+      color: var(--primary-burgundy);
       margin: 12px 0;
     }
 
     .modal-buy-btn {
-      background-color: var(--primary-orange);
+      background-color: var(--primary-burgundy);
       color: white;
       border: none;
       padding: 14px 28px;
@@ -212,61 +216,62 @@
       font-size: 1.15em;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.25s;
-      box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+      transition: all 0.25s;
+      box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3);
     }
 
     .modal-buy-btn:hover {
-      background-color: var(--primary-orange-hover);
+      background-color: var(--primary-burgundy-hover);
+      transform: translateY(-3px);
     }
   </style>
 </head>
 <body>
 
-  <h1>My Teaching Services</h1>
+  <h1>Мои занятия</h1>
 
   <div class="products-grid">
     <!-- Индивидуальный онлайн -->
     <div class="product-card" data-id="1">
-      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=360&q=80" alt="Individual Online Lesson">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=360&q=80" alt="Индивидуальное онлайн-занятие">
       <div class="product-info">
-        <h3>Individual Online Lesson</h3>
-        <p>One-on-one session via Zoom or Skype. Flexible schedule.</p>
-        <div class="price">1500 RUB</div>
-        <button class="buy-btn">Buy Now</button>
+        <h3>Индивидуальное онлайн-занятие</h3>
+        <p>Персональный урок через Zoom или Яндекс Телемост. Гибкий график.</p>
+        <div class="price">1500 ₽</div>
+        <button class="buy-btn">Записаться</button>
       </div>
     </div>
 
     <!-- Очный урок -->
     <div class="product-card" data-id="2">
-      <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=600&h=360&q=80" alt="Individual In-Person Lesson">
+      <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=600&h=360&q=80" alt="Индивидуальное очное занятие">
       <div class="product-info">
-        <h3>Individual In-Person Lesson</h3>
-        <p>Face-to-face lesson at a convenient location.</p>
-        <div class="price">2000 RUB</div>
-        <button class="buy-btn">Buy Now</button>
+        <h3>Индивидуальное очное занятие</h3>
+        <p>Личная встреча в удобном месте — кафе, библиотека или парк.</p>
+        <div class="price">2000 ₽</div>
+        <button class="buy-btn">Записаться</button>
       </div>
     </div>
 
     <!-- Мини-группа -->
     <div class="product-card" data-id="3">
-      <img src="https://images.unsplash.com/photo-1523580494863-132a88a56bad?auto=format&fit=crop&w=600&h=360&q=80" alt="Mini Group Lesson">
+      <img src="https://images.unsplash.com/photo-1523202135531-e3e58e7a0c8a?auto=format&fit=crop&w=600&h=360&q=80" alt="Мини-группа (2 человека)">
       <div class="product-info">
-        <h3>Mini Group (2 people)</h3>
-        <p>Small group session for focused learning with a friend.</p>
-        <div class="price">1000 RUB per person</div>
-        <button class="buy-btn">Buy Now</button>
+        <h3>Мини-группа (2 человека)</h3>
+        <p>Занятие для двоих — идеально для друзей или коллег.</p>
+        <div class="price">1000 ₽ с человека</div>
+        <button class="buy-btn">Записаться</button>
       </div>
     </div>
 
     <!-- Группа -->
     <div class="product-card" data-id="4">
-      <img src="https://images.unsplash.com/photo-1523240743512-7be7c4e9c2f6?auto=format&fit=crop&w=600&h=360&q=80" alt="Group Lesson">
+      <img src="https://images.unsplash.com/photo-1523240743512-7be7c4e9c2f6?auto=format&fit=crop&w=600&h=360&q=80" alt="Групповое занятие (4 человека)">
       <div class="product-info">
-        <h3>Group (4 people)</h3>
-        <p>Interactive group class with up to 4 students.</p>
-        <div class="price">800 RUB per person</div>
-        <button class="buy-btn">Buy Now</button>
+        <h3>Группа (до 4 человек)</h3>
+        <p>Интерактивные занятия в небольшой группе. Доступно и эффективно!</p>
+        <div class="price">800 ₽ с человека</div>
+        <button class="buy-btn">Записаться</button>
       </div>
     </div>
   </div>
@@ -279,10 +284,10 @@
         <div class="carousel-track" id="carouselTrack"></div>
       </div>
       <div class="carousel-dots" id="carouselDots"></div>
-      <h2 class="modal-title" id="modalTitle">Service Title</h2>
-      <div class="modal-description" id="modalDescription">Full description here.</div>
-      <div class="modal-price" id="modalPrice">0 RUB</div>
-      <button class="modal-buy-btn" id="modalBuyBtn">Buy Now</button>
+      <h2 class="modal-title" id="modalTitle">Название услуги</h2>
+      <div class="modal-description" id="modalDescription">Полное описание услуги.</div>
+      <div class="modal-price" id="modalPrice">0 ₽</div>
+      <button class="modal-buy-btn" id="modalBuyBtn">Записаться</button>
     </div>
   </div>
 
@@ -295,9 +300,9 @@
           "https://images.unsplash.com/photo-1548839120-9bb0b51f2e8d?auto=format&fit=crop&w=800&h=500&q=85",
           "https://images.unsplash.com/photo-1553877522-432630f7e1cc?auto=format&fit=crop&w=800&h=500&q=85"
         ],
-        title: "Individual Online Lesson",
-        description: "Personalized one-on-one online session tailored to your goals. We use Zoom, Skype, or Google Meet. You'll get homework, materials, and feedback after each lesson. Perfect for busy people who want flexible scheduling.",
-        price: "1500 RUB"
+        title: "Индивидуальное онлайн-занятие",
+        description: "Персональный урок, адаптированный под ваши цели. Занятия проходят через Zoom или Яндекс Телемост — выбирайте то, что удобнее вам. После каждого урока вы получаете домашнее задание, материалы и обратную связь. Идеально для занятых людей!",
+        price: "1500 ₽"
       },
       {
         id: "2",
@@ -305,19 +310,19 @@
           "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=800&h=500&q=85",
           "https://images.unsplash.com/photo-1524178232363-1fb2b075b654?auto=format&fit=crop&w=800&h=500&q=85"
         ],
-        title: "Individual In-Person Lesson",
-        description: "Meet face-to-face for an immersive learning experience. Lessons can take place at a café, library, or any quiet public space. Ideal for those who prefer direct interaction and immediate feedback.",
-        price: "2000 RUB"
+        title: "Индивидуальное очное занятие",
+        description: "Личная встреча для глубокого погружения в материал. Занятия проходят в удобном для вас месте — кафе, библиотека, парк или другое тихое пространство. Прямой контакт, мгновенная обратная связь и максимальная концентрация.",
+        price: "2000 ₽"
       },
       {
         id: "3",
         images: [
-          "https://images.unsplash.com/photo-1523580494863-132a88a56bad?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1523202135531-e3e58e7a0c8a?auto=format&fit=crop&w=800&h=500&q=85", // НОВАЯ РАБОЧАЯ ССЫЛКА
           "https://images.unsplash.com/photo-1516321318423-f06f85e5fa3d?auto=format&fit=crop&w=800&h=500&q=85"
         ],
-        title: "Mini Group (2 people)",
-        description: "Learn with a friend or colleague! This format combines personal attention with collaborative practice. Great for motivation and conversation practice. Price is per person.",
-        price: "1000 RUB per person"
+        title: "Мини-группа (2 человека)",
+        description: "Занимайтесь с другом, партнёром или коллегой! Формат сочетает персональный подход и живое общение. Отлично подходит для практики диалогов и совместного прогресса. Стоимость указана с человека.",
+        price: "1000 ₽ с человека"
       },
       {
         id: "4",
@@ -326,9 +331,9 @@
           "https://images.unsplash.com/photo-1561089489-f13d0c2e4e13?auto=format&fit=crop&w=800&h=500&q=85",
           "https://images.unsplash.com/photo-1522200153739-8a9d3c7d7f8e?auto=format&fit=crop&w=800&h=500&q=85"
         ],
-        title: "Group (4 people)",
-        description: "Join a small group of up to 4 students with similar language levels. Interactive activities, role-plays, and discussions make learning fun and effective. Affordable and social! Price is per person.",
-        price: "800 RUB per person"
+        title: "Группа (до 4 человек)",
+        description: "Динамичные и весёлые занятия в небольшой группе до 4 человек. Мы играем, обсуждаем, разыгрываем ситуации — так язык запоминается естественно! Экономично и мотивирующе. Стоимость указана с человека.",
+        price: "800 ₽ с человека"
       }
     ];
 
@@ -358,7 +363,7 @@
         service.images.forEach(src => {
           const img = document.createElement("img");
           img.src = src;
-          img.alt = "Service image";
+          img.alt = "Изображение услуги";
           carouselTrack.appendChild(img);
         });
         service.images.forEach((_, i) => {
@@ -383,7 +388,7 @@
 
     modalBuyBtn.addEventListener("click", () => {
       // 🔔 ЗАМЕНИТЕ НА СВОЮ ССЫЛКУ!
-      alert("Replace this with your payment or booking link!");
+      alert("Замените эту строку на ссылку для записи!");
     });
   </script>
 </body>
