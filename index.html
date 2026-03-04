@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Teaching Services</title>
+  <style>
+    :root {
+      --primary-orange: #FF6B00;
+      --primary-orange-hover: #E55E00;
+      --dark-text: #2C2C2C;
+      --light-bg: #FFFFFF;
+      --page-bg: #FAFAFA;
+      --card-shadow: 0 8px 20px rgba(255, 107, 0, 0.15);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--page-bg);
+      color: var(--dark-text);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--dark-text);
+      font-size: 2.2em;
+      font-weight: 700;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background: linear-gradient(145deg, #ffffff, #fff5f0);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 107, 0, 0.1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(255, 107, 0, 0.25);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 22px;
+    }
+
+    .product-info h3 {
+      margin: 0 0 12px;
+      font-size: 1.35em;
+      color: var(--dark-text);
+      font-weight: 700;
+    }
+
+    .product-info p {
+      margin: 0 0 16px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .price {
+      font-size: 1.3em;
+      font-weight: 800;
+      color: var(--primary-orange);
+      margin: 8px 0;
+    }
+
+    .buy-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-orange);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      box-shadow: 0 4px 10px rgba(255, 107, 0, 0.2);
+    }
+
+    .buy-btn:hover {
+      background-color: var(--primary-orange-hover);
+      transform: scale(1.02);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--light-bg);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 850px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 30px;
+      box-sizing: border-box;
+      box-shadow: 0 15px 50px rgba(255, 107, 0, 0.3);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #bbb;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+      color: var(--primary-orange);
+    }
+
+    .carousel-container {
+      margin-bottom: 25px;
+      height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .carousel-track img {
+      min-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: var(--primary-orange);
+    }
+
+    .modal-title {
+      margin: 15px 0 12px;
+      font-size: 1.8em;
+      color: var(--dark-text);
+      font-weight: 800;
+    }
+
+    .modal-description {
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 20px;
+      font-size: 1.05em;
+    }
+
+    .modal-price {
+      font-size: 1.5em;
+      font-weight: 800;
+      color: var(--primary-orange);
+      margin: 12px 0;
+    }
+
+    .modal-buy-btn {
+      background-color: var(--primary-orange);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1.15em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.25s;
+      box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .modal-buy-btn:hover {
+      background-color: var(--primary-orange-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Teaching Services</h1>
+
+  <div class="products-grid">
+    <!-- Индивидуальный онлайн -->
+    <div class="product-card" data-id="1">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=360&q=80" alt="Individual Online Lesson">
+      <div class="product-info">
+        <h3>Individual Online Lesson</h3>
+        <p>One-on-one session via Zoom or Skype. Flexible schedule.</p>
+        <div class="price">1500 RUB</div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+    </div>
+
+    <!-- Очный урок -->
+    <div class="product-card" data-id="2">
+      <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=600&h=360&q=80" alt="Individual In-Person Lesson">
+      <div class="product-info">
+        <h3>Individual In-Person Lesson</h3>
+        <p>Face-to-face lesson at a convenient location.</p>
+        <div class="price">2000 RUB</div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+    </div>
+
+    <!-- Мини-группа -->
+    <div class="product-card" data-id="3">
+      <img src="https://images.unsplash.com/photo-1523580494863-132a88a56bad?auto=format&fit=crop&w=600&h=360&q=80" alt="Mini Group Lesson">
+      <div class="product-info">
+        <h3>Mini Group (2 people)</h3>
+        <p>Small group session for focused learning with a friend.</p>
+        <div class="price">1000 RUB per person</div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+    </div>
+
+    <!-- Группа -->
+    <div class="product-card" data-id="4">
+      <img src="https://images.unsplash.com/photo-1523240743512-7be7c4e9c2f6?auto=format&fit=crop&w=600&h=360&q=80" alt="Group Lesson">
+      <div class="product-info">
+        <h3>Group (4 people)</h3>
+        <p>Interactive group class with up to 4 students.</p>
+        <div class="price">800 RUB per person</div>
+        <button class="buy-btn">Buy Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно -->
+  <div class="modal" id="serviceModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <h2 class="modal-title" id="modalTitle">Service Title</h2>
+      <div class="modal-description" id="modalDescription">Full description here.</div>
+      <div class="modal-price" id="modalPrice">0 RUB</div>
+      <button class="modal-buy-btn" id="modalBuyBtn">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    const services = [
+      {
+        id: "1",
+        images: [
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1548839120-9bb0b51f2e8d?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1553877522-432630f7e1cc?auto=format&fit=crop&w=800&h=500&q=85"
+        ],
+        title: "Individual Online Lesson",
+        description: "Personalized one-on-one online session tailored to your goals. We use Zoom, Skype, or Google Meet. You'll get homework, materials, and feedback after each lesson. Perfect for busy people who want flexible scheduling.",
+        price: "1500 RUB"
+      },
+      {
+        id: "2",
+        images: [
+          "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1524178232363-1fb2b075b654?auto=format&fit=crop&w=800&h=500&q=85"
+        ],
+        title: "Individual In-Person Lesson",
+        description: "Meet face-to-face for an immersive learning experience. Lessons can take place at a café, library, or any quiet public space. Ideal for those who prefer direct interaction and immediate feedback.",
+        price: "2000 RUB"
+      },
+      {
+        id: "3",
+        images: [
+          "https://images.unsplash.com/photo-1523580494863-132a88a56bad?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1516321318423-f06f85e5fa3d?auto=format&fit=crop&w=800&h=500&q=85"
+        ],
+        title: "Mini Group (2 people)",
+        description: "Learn with a friend or colleague! This format combines personal attention with collaborative practice. Great for motivation and conversation practice. Price is per person.",
+        price: "1000 RUB per person"
+      },
+      {
+        id: "4",
+        images: [
+          "https://images.unsplash.com/photo-1523240743512-7be7c4e9c2f6?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1561089489-f13d0c2e4e13?auto=format&fit=crop&w=800&h=500&q=85",
+          "https://images.unsplash.com/photo-1522200153739-8a9d3c7d7f8e?auto=format&fit=crop&w=800&h=500&q=85"
+        ],
+        title: "Group (4 people)",
+        description: "Join a small group of up to 4 students with similar language levels. Interactive activities, role-plays, and discussions make learning fun and effective. Affordable and social! Price is per person.",
+        price: "800 RUB per person"
+      }
+    ];
+
+    const modal = document.getElementById("serviceModal");
+    const closeModal = document.querySelector(".close-modal");
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalBuyBtn = document.getElementById("modalBuyBtn");
+    const carouselTrack = document.getElementById("carouselTrack");
+    const carouselDots = document.getElementById("carouselDots");
+
+    buyButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const card = this.closest(".product-card");
+        const serviceId = card.getAttribute("data-id");
+        const service = services.find(s => s.id === serviceId);
+        if (!service) return;
+
+        modalTitle.textContent = service.title;
+        modalDescription.textContent = service.description;
+        modalPrice.textContent = service.price;
+
+        carouselTrack.innerHTML = "";
+        carouselDots.innerHTML = "";
+        service.images.forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "Service image";
+          carouselTrack.appendChild(img);
+        });
+        service.images.forEach((_, i) => {
+          const dot = document.createElement("div");
+          dot.classList.add("dot");
+          if (i === 0) dot.classList.add("active");
+          dot.addEventListener("click", () => {
+            carouselTrack.style.transform = `translateX(-${i * 100}%)`;
+            document.querySelectorAll(".dot").forEach((d, idx) => {
+              d.classList.toggle("active", idx === i);
+            });
+          });
+          carouselDots.appendChild(dot);
+        });
+
+        modal.style.display = "flex";
+      });
+    });
+
+    closeModal.addEventListener("click", () => modal.style.display = "none");
+    window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+    modalBuyBtn.addEventListener("click", () => {
+      // 🔔 ЗАМЕНИТЕ НА СВОЮ ССЫЛКУ!
+      alert("Replace this with your payment or booking link!");
+    });
+  </script>
+</body>
+</html>
